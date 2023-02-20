@@ -1,2 +1,2 @@
-# wpm-test
-simple typing test web page
+# WMP-TESTER
+simple words per minute typing test
