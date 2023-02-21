@@ -45,6 +45,7 @@ body
 .test
 {
     width: 30%;
-
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
 }
