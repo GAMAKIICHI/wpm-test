@@ -1,6 +1,5 @@
 "use strict";
-
-const wordArea = document.querySelector(".test");
+const wordArea = document.querySelector("#word-area");
 
 const wpm = 
 {
@@ -16,13 +15,15 @@ const wpm =
     },
     updateWordDisplay()
     {   
-        wordArea.textContent = "";
         this.readDataIntoArray();
         function display()
         {
             wpm.wordData.forEach(word => 
             {
-                wordArea.textContent += `${word} `;
+                const spanElement = document.createElement("span");
+                const wordContent = document.createTextNode(`${word} `);
+                spanElement.appendChild(wordContent);
+                wordArea.appendChild(spanElement);
             });
         }
         // Required while data is being stored in array
@@ -31,4 +32,13 @@ const wpm =
 }
 
 wpm.updateWordDisplay();
+
+document.addEventListener("keypress", (event) =>
+{
+    if(event.key === wpm.wordData[0][0])
+    {
+        console.log("Works");
+    }
+    console.log(event.key);
+});
 
