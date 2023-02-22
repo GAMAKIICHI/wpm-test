@@ -1,9 +1,12 @@
 "use strict";
+
 const wordArea = document.querySelector("#word-area");
+let wordElement;
 
 const wpm = 
 {
     wordData: [],
+    wordsCompleted: 0,
 
     /*Read Data from text file*/
     async readDataIntoArray(){
@@ -16,6 +19,8 @@ const wpm =
     updateWordDisplay()
     {   
         this.readDataIntoArray();
+        let index = 0;
+        
         function display()
         {
             wpm.wordData.forEach((word, index) => 
@@ -26,23 +31,31 @@ const wpm =
                 wordArea.appendChild(spanElement);
 
                 //Add classes to span elements
-                const span = document.querySelectorAll("#word-area span");
-                span[index].classList.add("word-content");
+                wordElement = document.querySelectorAll("#word-area span");
+                wordElement[index].classList.add("word-content");
             });
         }
         // Required while data is being stored in array
         setTimeout(display, 5);
+
+        document.addEventListener("keypress", (event) =>
+        {   
+            if(event.key === wordElement[index].textContent[0])
+            {   
+                // Removes first letter from selected word
+                let updateWordEle = wordElement[index].textContent.slice(1);
+                wordElement[index].textContent = updateWordEle;
+
+                if(wordElement[index].textContent.length === 0)
+                {
+                    index++;
+                    this.wordsCompleted++;
+                }
+            }
+            console.log(event.key);
+        });
     }
 }
 
 wpm.updateWordDisplay();
-
-document.addEventListener("keypress", (event) =>
-{
-    if(event.key === wpm.wordData[0][0])
-    {
-        console.log("Works");
-    }
-    console.log(event.key);
-});
 
