@@ -18,12 +18,16 @@ const wpm =
         this.readDataIntoArray();
         function display()
         {
-            wpm.wordData.forEach(word => 
+            wpm.wordData.forEach((word, index) => 
             {
                 const spanElement = document.createElement("span");
                 const wordContent = document.createTextNode(`${word} `);
                 spanElement.appendChild(wordContent);
                 wordArea.appendChild(spanElement);
+
+                //Add classes to span elements
+                const span = document.querySelectorAll("#word-area span");
+                span[index].classList.add("word-content");
             });
         }
         // Required while data is being stored in array
