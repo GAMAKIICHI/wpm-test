@@ -58,11 +58,24 @@ body
 
 #word-area
 {
-    width: 70vw;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
+    display: flex;
     font-size: 2em;
+    text-align: center;
+    white-space: pre;
+}
+
+.completed-word-area
+{
+    width: 35vw;
+    text-align: right;
+    overflow: hidden;
+    color: blue;
+}
+
+.incompleted-word-area
+{
+    width: 35vw;
+    overflow: hidden;
 }
 
 .word-content

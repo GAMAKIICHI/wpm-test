@@ -1,6 +1,8 @@
 "use strict";
 
 const wordArea = document.querySelector("#word-area");
+const completeWordArea = document.querySelector(".incompleted-word-area");
+const incompletedWordArea = document.querySelector(".completed-word-area");
 let wordElement;
 
 const wpm = 
@@ -16,6 +18,19 @@ const wpm =
             return data.match(/\b(\w+)\b/g);
         });
     },
+    addWordsToDisplay(text,status)
+    {
+        const spanElement = document.createElement("span");
+        (status === true ? completeWordArea : incompletedWordArea).appendChild(spanElement);
+        spanElement.textContent = text;
+
+        
+    },
+    checkOverflow()
+    {
+        console.log(wordArea.offsetWidth / 2);
+        console.log("s " + incompletedWordArea.offsetWidth);
+    },
     updateWordDisplay()
     {   
         this.readDataIntoArray();
@@ -25,13 +40,9 @@ const wpm =
         {
             wpm.wordData.forEach((word, index) => 
             {
-                const spanElement = document.createElement("span");
-                const wordContent = document.createTextNode(`${word} `);
-                spanElement.appendChild(wordContent);
-                wordArea.appendChild(spanElement);
-
+                wpm.addWordsToDisplay(`${word} `, true);
                 //Add classes to span elements
-                wordElement = document.querySelectorAll("#word-area span");
+                wordElement = document.querySelectorAll(".incompleted-word-area span");
                 wordElement[index].classList.add("word-content");
             });
         }
@@ -40,11 +51,16 @@ const wpm =
 
         document.addEventListener("keypress", (event) =>
         {   
+            wpm.checkOverflow();
+
             if(event.key === wordElement[index].textContent[0])
             {   
                 // Removes first letter from selected word
                 let updateWordEle = wordElement[index].textContent.slice(1);
                 wordElement[index].textContent = updateWordEle;
+                
+                // Add letter to completed word area
+                wpm.addWordsToDisplay(event.key, false);
 
                 if(wordElement[index].textContent.length === 0)
                 {
@@ -52,7 +68,6 @@ const wpm =
                     this.wordsCompleted++;
                 }
             }
-            console.log(event.key);
         });
     }
 }
