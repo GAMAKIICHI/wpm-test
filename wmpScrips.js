@@ -2,7 +2,7 @@
 
 const wordArea = document.querySelector("#word-area");
 const completeWordArea = document.querySelector(".incompleted-word-area");
-const incompletedWordArea = document.querySelector(".completed-word-area");
+const incompletedWordArea = document.querySelector(".completed-word-area span");
 let wordElement;
 
 const wpm = 
@@ -18,18 +18,25 @@ const wpm =
             return data.match(/\b(\w+)\b/g);
         });
     },
-    addWordsToDisplay(text,status)
+    addWordsToDisplay(text)
     {
         const spanElement = document.createElement("span");
-        (status === true ? completeWordArea : incompletedWordArea).appendChild(spanElement);
+        completeWordArea.appendChild(spanElement);
         spanElement.textContent = text;
 
         
     },
     checkOverflow()
     {
-        console.log(wordArea.offsetWidth / 2);
-        console.log("s " + incompletedWordArea.offsetWidth);
+        const wordAreaWidth = (wordArea.offsetWidth / 2) - 48;
+        const incompleteWordAreaWidth = incompletedWordArea.offsetWidth;
+
+        if(incompleteWordAreaWidth > wordAreaWidth)
+        {   
+            console.log(`waw: ${wordAreaWidth} inc: ${incompleteWordAreaWidth}`);
+            const overflowedIncompleteText = incompletedWordArea.textContent.slice(1);
+            incompletedWordArea.textContent = overflowedIncompleteText;
+        }
     },
     updateWordDisplay()
     {   
@@ -40,7 +47,7 @@ const wpm =
         {
             wpm.wordData.forEach((word, index) => 
             {
-                wpm.addWordsToDisplay(`${word} `, true);
+                wpm.addWordsToDisplay(`${word} `);
                 //Add classes to span elements
                 wordElement = document.querySelectorAll(".incompleted-word-area span");
                 wordElement[index].classList.add("word-content");
@@ -51,17 +58,17 @@ const wpm =
 
         document.addEventListener("keypress", (event) =>
         {   
-            wpm.checkOverflow();
+            /* wpm.checkOverflow(); */
 
             if(event.key === wordElement[index].textContent[0])
             {   
+                // Add letter to completed word area
+                incompletedWordArea.textContent += wordElement[index].textContent[0];
+                
                 // Removes first letter from selected word
                 let updateWordEle = wordElement[index].textContent.slice(1);
                 wordElement[index].textContent = updateWordEle;
                 
-                // Add letter to completed word area
-                wpm.addWordsToDisplay(event.key, false);
-
                 if(wordElement[index].textContent.length === 0)
                 {
                     index++;
