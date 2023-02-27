@@ -23,20 +23,12 @@ const wpm =
         const spanElement = document.createElement("span");
         completeWordArea.appendChild(spanElement);
         spanElement.textContent = text;
-
-        
     },
-    checkOverflow()
+    addIncorrectWordToDisplay(text)
     {
-        const wordAreaWidth = (wordArea.offsetWidth / 2) - 48;
-        const incompleteWordAreaWidth = incompletedWordArea.offsetWidth;
-
-        if(incompleteWordAreaWidth > wordAreaWidth)
-        {   
-            console.log(`waw: ${wordAreaWidth} inc: ${incompleteWordAreaWidth}`);
-            const overflowedIncompleteText = incompletedWordArea.textContent.slice(1);
-            incompletedWordArea.textContent = overflowedIncompleteText;
-        }
+        const strikeElement = document.createElement("span");
+        incompletedWordArea.appendChild(strikeElement).classList.add("incorrect-letter");
+        strikeElement.textContent = text;
     },
     updateWordDisplay()
     {   
@@ -58,8 +50,6 @@ const wpm =
 
         document.addEventListener("keypress", (event) =>
         {   
-            /* wpm.checkOverflow(); */
-
             if(event.key === wordElement[index].textContent[0])
             {   
                 // Add letter to completed word area
@@ -74,6 +64,10 @@ const wpm =
                     index++;
                     this.wordsCompleted++;
                 }
+            }
+            else if(event.key != wordElement[index].textContent[0] && event.key != " ")
+            {
+                this.addIncorrectWordToDisplay(event.key);
             }
         });
     }

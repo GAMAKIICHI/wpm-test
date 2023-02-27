@@ -50,7 +50,7 @@ body
     text-shadow: 0 3px 2px green;
 }
 
-#timer
+#timer-display
 {
     font-size: 1.3em;
     margin-bottom: 1rem;
@@ -67,10 +67,11 @@ body
 
 .completed-word-area
 {
+    display: flex;
     width: 35vw;
     margin-left: auto;
     margin-right: auto;
-    text-align: right;
+    justify-content: right;
     color: blue;
 }
 
@@ -84,7 +85,7 @@ body
     width: 35vw;
 }
 
-/* .word-content
+.incorrect-letter
 {
-
-} */
+    text-decoration: line-through;
+}
