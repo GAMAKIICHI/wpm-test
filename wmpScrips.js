@@ -10,9 +10,8 @@ const wpm =
 {
     wordData: [],
     wordsCompleted: 0,
-    count: 5,
+    count: 60,
     iskeyPressed: false,
-    isModalVisible: false,
 
     /*Read Data from text file*/
     async readDataIntoArray(){
@@ -62,7 +61,6 @@ const wpm =
                 closeModalBtn.addEventListener("click", function()
                 {
                     wpm.iskeyPressed = false;
-                    wpm.isModalVisible = false;
                     modal.classList.remove("visible-modal");
 
                     wpm.count = 60;
@@ -85,7 +83,7 @@ const wpm =
             // Stops keyboard inputs if timer reaches 0
             if(this.count === 0) return;
 
-            if(event.key === wordElement[index].textContent[0] && this.isModalVisible === false)
+            if(event.key === wordElement[index].textContent[0])
             {   
                 // Add letter to completed word area
                 incompletedWordArea.textContent += wordElement[index].textContent[0];
@@ -100,7 +98,7 @@ const wpm =
                     this.wordsCompleted++;
                 }
             }
-            else if(event.key != wordElement[index].textContent[0] && event.key != " " && this.isModalVisible === false)
+            else if(event.key != wordElement[index].textContent[0] && event.key != " ")
             {
                 //this.addIncorrectWordToDisplay(event.key);
             }

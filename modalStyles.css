@@ -7,6 +7,7 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
+    padding: 1em;
 
     width: 25vw;
     height: 30vh;
@@ -26,21 +27,67 @@
 
 .modal-header
 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     margin-bottom: .5em;
     position: relative;
 }
 
 .close-modal
 {
-    float: right;
     border: none;
     background-color: inherit;
     font-weight: bold;
-    margin: .5em;
+}
+
+.modal-header h2
+{
+    width: 100%;
+    text-align: center;
 }
 
 .modal-content
 {
-    padding: 1em;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 1em;
     height: 80%;
+}
+
+.modal-content div
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content h3
+{
+    padding-top: .5em;
+}
+
+.test-results
+{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+
+    width: 4rem;
+    height: 4rem;
+
+    border: 1px solid black;
+    border-radius: 100%;
+}
+
+.modal-content div
+{
+    height: 80%;
+    width: 30%;
+    text-align: center;
+    border-radius: 1em;
+    background-color: blueviolet;
+
 }
