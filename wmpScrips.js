@@ -10,7 +10,9 @@ const wpm =
 {
     wordData: [],
     wordsCompleted: 0,
-    count: 60,
+    count: 5,
+    iskeyPressed: false,
+    isModalVisible: false,
 
     /*Read Data from text file*/
     async readDataIntoArray(){
@@ -36,7 +38,7 @@ const wpm =
     {
         const timer = function()
         {
-            if(wpm.count != 0)
+            if(wpm.count != 0 && wpm.iskeyPressed)
             {
                 wpm.count--;
                 timerContent.textContent = `Timer: ${String(wpm.count)} Sec`;
@@ -45,13 +47,45 @@ const wpm =
 
         setInterval(timer, 1000);
     },
+    displayModal()
+    {
+        const modal = document.querySelector(".completed-test-modal");
+        const closeModalBtn = document.querySelector(".close-modal");
+
+        function visible()
+        {
+            if(wpm.count === 0)
+            {
+                modal.classList.add("visible-modal");
+                wpm.isModalVisible = true;
+
+                closeModalBtn.addEventListener("click", function()
+                {
+                    wpm.iskeyPressed = false;
+                    wpm.isModalVisible = false;
+                    modal.classList.remove("visible-modal");
+
+                    wpm.count = 60;
+                    timerContent.textContent = `Timer: ${String(wpm.count)} Sec`;
+
+                });
+                
+            }
+                
+        }
+
+        setInterval(visible, 1);
+    },
     keyboardInputs(index)
     {
         document.addEventListener("keypress", (event) =>
         {   
+            this.iskeyPressed = true;
+
+            // Stops keyboard inputs if timer reaches 0
             if(this.count === 0) return;
 
-            if(event.key === wordElement[index].textContent[0])
+            if(event.key === wordElement[index].textContent[0] && this.isModalVisible === false)
             {   
                 // Add letter to completed word area
                 incompletedWordArea.textContent += wordElement[index].textContent[0];
@@ -66,7 +100,7 @@ const wpm =
                     this.wordsCompleted++;
                 }
             }
-            else if(event.key != wordElement[index].textContent[0] && event.key != " ")
+            else if(event.key != wordElement[index].textContent[0] && event.key != " " && this.isModalVisible === false)
             {
                 //this.addIncorrectWordToDisplay(event.key);
             }
@@ -74,8 +108,10 @@ const wpm =
     },
     updateWordDisplay()
     {   
-        this.readDataIntoArray();
         let index = 0;
+
+        this.readDataIntoArray();
+        this.displayModal();
         this.updateTimer();
 
         function display()
