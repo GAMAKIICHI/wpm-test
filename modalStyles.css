@@ -1,0 +1,46 @@
+.completed-test-modal
+{
+    margin: auto;
+    position: absolute;
+    top: 20vh;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 25vw;
+    height: 30vh;
+    border-radius: 1em;
+    background-color: lightblue;
+
+    opacity: 0;
+    visibility: hidden;
+
+}
+
+.visible-modal
+{
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-header
+{
+    margin-bottom: .5em;
+    position: relative;
+}
+
+.close-modal
+{
+    float: right;
+    border: none;
+    background-color: inherit;
+    font-weight: bold;
+    margin: .5em;
+}
+
+.modal-content
+{
+    padding: 1em;
+    height: 80%;
+}
