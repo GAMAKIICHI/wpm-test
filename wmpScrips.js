@@ -3,12 +3,14 @@
 const wordArea = document.querySelector("#word-area");
 const completeWordArea = document.querySelector(".incompleted-word-area");
 const incompletedWordArea = document.querySelector(".completed-word-area span");
+const timerContent = document.querySelector("#timer-display");
 let wordElement;
 
 const wpm = 
 {
     wordData: [],
     wordsCompleted: 0,
+    count: 60,
 
     /*Read Data from text file*/
     async readDataIntoArray(){
@@ -30,26 +32,25 @@ const wpm =
         incompletedWordArea.appendChild(strikeElement).classList.add("incorrect-letter");
         strikeElement.textContent = text;
     },
-    updateWordDisplay()
-    {   
-        this.readDataIntoArray();
-        let index = 0;
-        
-        function display()
+    updateTimer()
+    {
+        const timer = function()
         {
-            wpm.wordData.forEach((word, index) => 
+            if(wpm.count != 0)
             {
-                wpm.addWordsToDisplay(`${word} `);
-                //Add classes to span elements
-                wordElement = document.querySelectorAll(".incompleted-word-area span");
-                wordElement[index].classList.add("word-content");
-            });
+                wpm.count--;
+                timerContent.textContent = `Timer: ${String(wpm.count)} Sec`;
+            }
         }
-        // Required while data is being stored in array
-        setTimeout(display, 5);
 
+        setInterval(timer, 1000);
+    },
+    keyboardInputs(index)
+    {
         document.addEventListener("keypress", (event) =>
         {   
+            if(this.count === 0) return;
+
             if(event.key === wordElement[index].textContent[0])
             {   
                 // Add letter to completed word area
@@ -67,9 +68,30 @@ const wpm =
             }
             else if(event.key != wordElement[index].textContent[0] && event.key != " ")
             {
-                this.addIncorrectWordToDisplay(event.key);
+                //this.addIncorrectWordToDisplay(event.key);
             }
         });
+    },
+    updateWordDisplay()
+    {   
+        this.readDataIntoArray();
+        let index = 0;
+        this.updateTimer();
+
+        function display()
+        {
+            wpm.wordData.forEach((word, index) => 
+            {
+                wpm.addWordsToDisplay(`${word} `);
+                //Add classes to span elements
+                wordElement = document.querySelectorAll(".incompleted-word-area span");
+                wordElement[index].classList.add("word-content");
+            });
+        }
+        // Required while data is being stored in array
+        setTimeout(display, 5);
+
+        this.keyboardInputs(index);
     }
 }
 
