@@ -10,7 +10,9 @@ const wpm =
 {
     wordData: [],
     wordsCompleted: 0,
-    count: 60,
+    Errors: 0,
+    cpm: 0,
+    count: 0,
     iskeyPressed: false,
 
     /*Read Data from text file*/
@@ -50,6 +52,9 @@ const wpm =
     {
         const modal = document.querySelector(".completed-test-modal");
         const closeModalBtn = document.querySelector(".close-modal");
+        const wpmContent = document.querySelector(".wpm");
+        const errContent = document.querySelector(".err");
+        const cpmContent = document.querySelector(".cpm");
 
         function visible()
         {
@@ -57,6 +62,10 @@ const wpm =
             {
                 modal.classList.add("visible-modal");
                 wpm.isModalVisible = true;
+
+                wpmContent.textContent = wpm.wordsCompleted;
+                errContent.textContent = wpm.Errors;
+                cpmContent.textContent = wpm.cpm;
 
                 closeModalBtn.addEventListener("click", function()
                 {
@@ -87,7 +96,8 @@ const wpm =
             {   
                 // Add letter to completed word area
                 incompletedWordArea.textContent += wordElement[index].textContent[0];
-                
+                wpm.cpm++;
+
                 // Removes first letter from selected word
                 let updateWordEle = wordElement[index].textContent.slice(1);
                 wordElement[index].textContent = updateWordEle;
@@ -101,6 +111,7 @@ const wpm =
             else if(event.key != wordElement[index].textContent[0] && event.key != " ")
             {
                 //this.addIncorrectWordToDisplay(event.key);
+                this.Errors++;
             }
         });
     },

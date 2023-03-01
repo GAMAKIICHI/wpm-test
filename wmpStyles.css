@@ -7,6 +7,7 @@
 body
 {
     height: 100vh;
+    background-color: #415A77;
 }
 
 #nav-bar
@@ -14,6 +15,8 @@ body
     display: flex;
     align-items: center;
     padding: 1em;
+
+    background-color: #476683;
 }
 
 #nav-bar h1
@@ -47,7 +50,7 @@ body
 {
     font-size: 3em;
     margin-bottom: 1rem;
-    text-shadow: 0 3px 2px green;
+    
 }
 
 #timer-display
@@ -59,10 +62,15 @@ body
 #word-area
 {
     display: flex;
-    font-size: 2em;
-    text-align: center;
+    align-items: center;
     overflow: hidden;
     white-space: pre;
+    height: 15%;
+
+    box-shadow: 4px 5px 5px #0D1B2A;
+    font-size: 2em; 
+    border-radius: 10px;
+    background-color: #E0E1DD;
 }
 
 .completed-word-area
@@ -72,7 +80,7 @@ body
     margin-left: auto;
     margin-right: auto;
     justify-content: right;
-    color: blue;
+    color: #0353A4;
 }
 
 .completed-word-area span

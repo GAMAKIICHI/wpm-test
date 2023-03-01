@@ -12,7 +12,7 @@
     width: 25vw;
     height: 30vh;
     border-radius: 1em;
-    background-color: lightblue;
+    background-color: #979DAC;
 
     opacity: 0;
     visibility: hidden;
@@ -39,6 +39,7 @@
     border: none;
     background-color: inherit;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .modal-header h2
@@ -88,6 +89,6 @@
     width: 30%;
     text-align: center;
     border-radius: 1em;
-    background-color: blueviolet;
+    background-color: #5C677D;
 
 }
