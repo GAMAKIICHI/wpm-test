@@ -115,16 +115,20 @@ const wpm =
             }
         });
     },
+    shuffle()
+    {
+        console.log(this.wordData = this.wordData.sort((a,b) => 0.5 - Math.random()));
+    },
     updateWordDisplay()
     {   
         let index = 0;
-
         this.readDataIntoArray();
         this.displayModal();
         this.updateTimer();
 
         function display()
         {
+            wpm.shuffle();
             wpm.wordData.forEach((word, index) => 
             {
                 wpm.addWordsToDisplay(`${word} `);
