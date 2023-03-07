@@ -12,7 +12,7 @@ const wpm =
     wordsCompleted: 0,
     Errors: 0,
     cpm: 0,
-    count: 0,
+    count: 60,
     iskeyPressed: false,
 
     /*Read Data from text file*/
