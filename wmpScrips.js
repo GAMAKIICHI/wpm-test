@@ -12,7 +12,7 @@ const wpm =
     wordsCompleted: 0,
     Errors: 0,
     cpm: 0,
-    count: 60,
+    count: 5,
     iskeyPressed: false,
 
     /*Read Data from text file*/
@@ -61,7 +61,6 @@ const wpm =
             if(wpm.count === 0)
             {
                 modal.classList.add("visible-modal");
-                wpm.isModalVisible = true;
 
                 wpmContent.textContent = wpm.wordsCompleted;
                 errContent.textContent = wpm.Errors;
@@ -69,19 +68,26 @@ const wpm =
 
                 closeModalBtn.addEventListener("click", function()
                 {
+
                     wpm.iskeyPressed = false;
                     modal.classList.remove("visible-modal");
 
                     wpm.count = 60;
                     timerContent.textContent = `Timer: ${String(wpm.count)} Sec`;
 
+                    // Clear text area
+                    incompletedWordArea.textContent = "";
+                    document.querySelector(".incompleted-word-area span").remove();
+
+                    wpm.updateWordDisplay();
+                    
                 });
-                
+
+                clearInterval(checkModal);  
             }
-                
         }
 
-        setInterval(visible, 1);
+        var checkModal = setInterval(visible, 1);
     },
     keyboardInputs(index)
     {
@@ -117,7 +123,7 @@ const wpm =
     },
     shuffle()
     {
-        console.log(this.wordData = this.wordData.sort((a,b) => 0.5 - Math.random()));
+        this.wordData = this.wordData.sort((a,b) => 0.5 - Math.random());
     },
     updateWordDisplay()
     {   
